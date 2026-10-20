@@ -1,28 +1,50 @@
 {
   "name": "ideation-goat",
-  "version": "1.0.0",
-  "description": "Cross-Domain Cross-Pollination & Ideation Engine for AI Agents",
-  "author": "seeramsujay",
-  "license": "MIT",
+  "version": "2.0.0",
+  "description": "MCP server for idea research: papers, patents, open-source repo due diligence, and local workspace analysis.",
   "type": "module",
-  "main": "dist/index.js",
+  "bin": {
+    "ideation-goat": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22"
   },
   "scripts": {
-    "dev": "nitrostack-cli dev",
-    "build": "nitrostack-cli build",
-    "start": "node dist/index.js"
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "start": "node dist/index.js",
+    "start:http": "node dist/index.js --http",
+    "inspector": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "arxiv",
+    "semantic-scholar",
+    "github",
+    "osv",
+    "ideation"
+  ],
+  "author": "Aditya Tummuri",
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdityaTummuri/Ideation_GOAT.git"
   },
   "dependencies": {
-    "@nitrostack/core": "^1.0.13",
-    "dotenv": "^17.2.3",
-    "zod": "^3.24.1"
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "zod": "^4.0.0"
   },
   "devDependencies": {
-    "@nitrostack/cli": "^1.0.14",
-    "@types/node": "^22.10.5",
-    "typescript": "^5.8.0"
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.0",
+    "vitest": "^3.0.0"
   }
 }
-

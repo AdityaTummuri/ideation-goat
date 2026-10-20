@@ -1,64 +1,8 @@
-# Virtual environments
-.ig/
-.venv/
-env/
-venv/
-ENV/
-.gss/
-
-# Python caching & builds
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-develop-eggs/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-.installed.cfg
-*.egg
-*.pyc
-*.pyo
-*.pyd
-
-# Test and coverage
-.pytest_cache/
-.coverage
-htmlcov/
+node_modules/
 dist/
-build/
-*.egg-info/
-
-# Lock files for local tooling (not used in public repo)
-uv.lock
-pnpm-lock.yaml
-
-# Archives (per rule)
-Archives/
-
-# Environment variables & local configs
+coverage/
 .env
+*.log
+.DS_Store
 .vscode/
 .idea/
-
-# Local database files
-chroma_data/
-
-# OS-specific files
-.DS_Store
-Thumbs.db
-
-# Temporary directories created by test suite
-tmp*/
-.tmp*/
-
-# Node modules
-node_modules/
