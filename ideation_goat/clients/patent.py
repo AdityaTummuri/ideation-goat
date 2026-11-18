@@ -21,7 +21,7 @@ class PatentClient:
         """
         Queries SerpApi Google Patents endpoint with retries and exponential backoff.
         """
-        from config import settings
+        from ideation_goat.config import settings
 
         google_patents_api_key = getattr(settings, "GOOGLE_PATENTS_API_KEY", None)
 

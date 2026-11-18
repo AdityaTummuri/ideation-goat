@@ -1,17 +1,13 @@
 import asyncio
 import os
-import sys
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import MagicMock, patch
 
-# Adjust path to import root modules properly
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
 # Import the server tools and data structures to test
-import server
-from server import (
+from ideation_goat import server
+from ideation_goat.server import (
     align_system_architecture,
     analyze_workspace_ast,
     assess_viability,
@@ -27,13 +23,13 @@ from server import (
     verify_workspace_fit,
     write_scaffolding_files,
 )
-from server import (
+from ideation_goat.server import (
     analyze_repo_bugs as server_analyze_repo_bugs,
 )
-from server import (
+from ideation_goat.server import (
     check_ecosystem_lockin as server_check_ecosystem_lockin,
 )
-from server import (
+from ideation_goat.server import (
     check_repo_health as server_check_repo_health,
 )
 
@@ -325,7 +321,7 @@ class TestIdeationGoatServer(unittest.TestCase):
         root_node = next(n for n in topology["nodes"] if n["id"] == "root-query")
         self.assertIn("Intent", root_node["label"])
 
-    @patch("workspace_analyzer.Github")
+    @patch("ideation_goat.analyzers.workspace_fit.Github")
     def test_verify_workspace_fit(self, mock_github):
         # Setup mock Github client
         mock_g = MagicMock()
@@ -356,7 +352,7 @@ class TestIdeationGoatServer(unittest.TestCase):
         self.assertIn("CacheGraphene", res)
 
     @patch("urllib.request.urlopen")
-    @patch("repo_profiler.Github")
+    @patch("ideation_goat.analyzers.repo_profiler.Github")
     def test_get_repo_health(self, mock_github, mock_urlopen):
         # Mock OSV.dev call
         mock_response = MagicMock()
@@ -392,7 +388,7 @@ class TestIdeationGoatServer(unittest.TestCase):
         self.assertIn("Vitality Score", res)
         self.assertIn("1,000", res)
 
-    @patch("repo_profiler.Github")
+    @patch("ideation_goat.analyzers.repo_profiler.Github")
     def test_profile_repo_hardware_footprint(self, mock_github):
         mock_g = MagicMock()
         mock_github.return_value = mock_g
@@ -460,7 +456,7 @@ class TestIdeationGoatServer(unittest.TestCase):
             MagicMock(__enter__=MagicMock(return_value=unpaywall_response)),
         ]
 
-        from scholar_client import ScholarClient
+        from ideation_goat.clients.scholar import ScholarClient
 
         client = ScholarClient()
         papers = client.search("quantum cache")
@@ -476,7 +472,7 @@ class TestIdeationGoatServer(unittest.TestCase):
         import json
         from unittest.mock import MagicMock
 
-        from config import settings
+        from ideation_goat.config import settings
 
         settings.GOOGLE_PATENTS_API_KEY = "fake_patents_key"  # force API execution path
         serpapi_response = MagicMock()
@@ -497,7 +493,7 @@ class TestIdeationGoatServer(unittest.TestCase):
 
         mock_urlopen.return_value.__enter__.return_value = serpapi_response
 
-        from patent_client import PatentClient
+        from ideation_goat.clients.patent import PatentClient
 
         client = PatentClient()
         patents = client.search("cache eviction")
@@ -559,7 +555,7 @@ class TestIdeationGoatServer(unittest.TestCase):
         self.assertIn("Workspace AST & Architecture Profile", res)
         self.assertIn("Python", res)
 
-    @patch("server.analyze_repo_health")
+    @patch("ideation_goat.server.analyze_repo_health")
     def test_check_repo_health_tool(self, mock_analyze):
         mock_analyze.return_value = {
             "health_score": 90,
@@ -579,7 +575,7 @@ class TestIdeationGoatServer(unittest.TestCase):
         self.assertIn("90 / 100", res)
         self.assertIn("Healthy", res)
 
-    @patch("server.run_lockin_profiler")
+    @patch("ideation_goat.server.run_lockin_profiler")
     def test_check_ecosystem_lockin_tool(self, mock_lockin):
         mock_lockin.return_value = {
             "repo": "psf/requests",
@@ -593,7 +589,7 @@ class TestIdeationGoatServer(unittest.TestCase):
         self.assertIn("Ecosystem Lock-In & Portability Profile", res)
         self.assertIn("- **Portability Grade:** `A`", res)
 
-    @patch("server.run_bug_profiler")
+    @patch("ideation_goat.server.run_bug_profiler")
     def test_analyze_repo_bugs_tool(self, mock_bugs):
         mock_bugs.return_value = {
             "repo": "psf/requests",
@@ -636,7 +632,7 @@ class TestIdeationGoatServer(unittest.TestCase):
             "repo_health": {"scorecard": "Vitality Score: 95 / 100", "analysis": {}},
         }
 
-        with patch("server.orchestrator.orchestrate_workflow", return_value=mock_report):
+        with patch("ideation_goat.server.orchestrator.orchestrate_workflow", return_value=mock_report):
             loop = asyncio.get_event_loop()
             res = loop.run_until_complete(orchestrate_architectural_workflow(query="caching and eviction"))
             self.assertIn("Unified Orchestrated Analysis Report", res)
@@ -649,7 +645,7 @@ class TestIdeationGoatServer(unittest.TestCase):
         Test the underlying WorkflowOrchestrator class logic.
         Mocks individual analyzer/search steps to verify integration flows correctly.
         """
-        from orchestrator import WorkflowOrchestrator
+        from ideation_goat.orchestrator import WorkflowOrchestrator
 
         orchestrator_instance = WorkflowOrchestrator()
 
@@ -662,7 +658,7 @@ class TestIdeationGoatServer(unittest.TestCase):
             ),
             patch.object(orchestrator_instance.search_engine, "compose_solution_stack", return_value="Blueprint Stack"),
             patch(
-                "orchestrator.analyze_workspace",
+                "ideation_goat.orchestrator.analyze_workspace",
                 return_value={
                     "primary_language": "Python",
                     "languages_detected": ["Python"],
@@ -671,12 +667,18 @@ class TestIdeationGoatServer(unittest.TestCase):
                 },
             ),
             patch(
-                "orchestrator.analyze_repo_health",
+                "ideation_goat.orchestrator.analyze_repo_health",
                 return_value={"health_score": 90, "metrics": {"repo": "psf/requests"}},
             ),
             patch.object(orchestrator_instance.repo_profiler, "get_repo_health", return_value="Scorecard"),
-            patch("orchestrator.run_lockin_profiler", return_value={"repo": "psf/requests", "portability_grade": "A"}),
-            patch("orchestrator.run_bug_profiler", return_value={"repo": "psf/requests", "total_analyzed_issues": 5}),
+            patch(
+                "ideation_goat.orchestrator.run_lockin_profiler",
+                return_value={"repo": "psf/requests", "portability_grade": "A"},
+            ),
+            patch(
+                "ideation_goat.orchestrator.run_bug_profiler",
+                return_value={"repo": "psf/requests", "total_analyzed_issues": 5},
+            ),
             patch.object(
                 orchestrator_instance.workspace_analyzer, "verify_workspace_fit", return_value="Fit Scorecard"
             ),
@@ -694,7 +696,7 @@ class TestIdeationGoatServer(unittest.TestCase):
 
     def test_forecast_live_costs(self):
         """Test the live cost forecaster tool."""
-        from server import forecast_live_costs
+        from ideation_goat.server import forecast_live_costs
 
         loop = asyncio.get_event_loop()
 
@@ -711,7 +713,7 @@ class TestIdeationGoatServer(unittest.TestCase):
 
     def test_auto_heal_parameters(self):
         """Test the autonomous schema auto-healer tool."""
-        from server import auto_heal_parameters
+        from ideation_goat.server import auto_heal_parameters
 
         loop = asyncio.get_event_loop()
 
@@ -738,8 +740,8 @@ class TestIdeationGoatServer(unittest.TestCase):
 
     def test_verify_identity_token(self):
         """Test the enterprise identity sandbox tool."""
-        from analyzers.identity_sandbox import generate_mock_jwt_token
-        from server import verify_identity_token
+        from ideation_goat.analyzers.identity_sandbox import generate_mock_jwt_token
+        from ideation_goat.server import verify_identity_token
 
         loop = asyncio.get_event_loop()
 
@@ -759,7 +761,7 @@ class TestIdeationGoatServer(unittest.TestCase):
 
     def test_profile_dependency_injection(self):
         """Test the dependency injection profiler tool."""
-        from server import profile_dependency_injection
+        from ideation_goat.server import profile_dependency_injection
 
         loop = asyncio.get_event_loop()
 
@@ -773,7 +775,7 @@ class TestIdeationGoatServer(unittest.TestCase):
         """Test the works anywhere synthesizer tool."""
         import tempfile
 
-        from server import generate_docker_scaffolding
+        from ideation_goat.server import generate_docker_scaffolding
 
         loop = asyncio.get_event_loop()
 
@@ -792,11 +794,11 @@ class TestIdeationGoatServer(unittest.TestCase):
 
     def test_scan_local_cves(self):
         """Test the CVE security shield tool."""
-        from server import scan_local_cves
+        from ideation_goat.server import scan_local_cves
 
         loop = asyncio.get_event_loop()
 
-        with patch("analyzers.cve_shield.fetch_osv_vulnerabilities") as mock_fetch:
+        with patch("ideation_goat.analyzers.cve_shield.fetch_osv_vulnerabilities") as mock_fetch:
             # Setup mock to return a CVE for PyPI package
             mock_fetch.return_value = [
                 {
@@ -805,7 +807,9 @@ class TestIdeationGoatServer(unittest.TestCase):
                     "severity": [{"type": "CVSS_V3", "score": "9.8"}],
                 }
             ]
-            res = loop.run_until_complete(scan_local_cves(workspace_path=".", halt_on_severity="high"))
+            with TemporaryDirectory() as workspace:
+                Path(workspace, "requirements.txt").write_text("requests==2.0.0\n", encoding="utf-8")
+                res = loop.run_until_complete(scan_local_cves(workspace_path=workspace, halt_on_severity="high"))
             self.assertEqual(res["status"], "BLOCKED")
             self.assertEqual(res["highest_severity_found"], "CRITICAL")
             self.assertTrue(res["gate_triggered"])
@@ -813,7 +817,7 @@ class TestIdeationGoatServer(unittest.TestCase):
 
     def test_search_gitlab_repos(self):
         """Test the GitLab repository search tool."""
-        from server import search_gitlab_repos
+        from ideation_goat.server import search_gitlab_repos
 
         loop = asyncio.get_event_loop()
         res = loop.run_until_complete(search_gitlab_repos(query="redis"))
@@ -823,7 +827,7 @@ class TestIdeationGoatServer(unittest.TestCase):
 
     def test_audit_hacker_news_trends(self):
         """Test the Hacker News trends tracking tool."""
-        from server import audit_hacker_news_trends
+        from ideation_goat.server import audit_hacker_news_trends
 
         loop = asyncio.get_event_loop()
         res = loop.run_until_complete(audit_hacker_news_trends(query="caching"))
@@ -833,7 +837,7 @@ class TestIdeationGoatServer(unittest.TestCase):
 
     def test_master_router_domain_routing(self):
         """Test the Master Router domain classification and execution paths."""
-        from orchestrator import WorkflowOrchestrator
+        from ideation_goat.orchestrator import WorkflowOrchestrator
 
         orchestrator = WorkflowOrchestrator()
 
@@ -842,8 +846,15 @@ class TestIdeationGoatServer(unittest.TestCase):
         self.assertEqual(orchestrator.route_to_domain("streamlit UI design"), "Domain 3")
         self.assertEqual(orchestrator.route_to_domain("redis cache implementation"), "Domain 1")
 
-        # Test Domain 2 mock execution
-        res_d2 = orchestrator.orchestrate_workflow(query="quantum theory paper")
+        # Test Domain 2 mock execution (all external clients stubbed to keep the suite offline)
+        paper = {"title": "Quantum Theory With PyTorch", "summary": "A PyTorch study.", "source": "arXiv"}
+        with (
+            patch.object(orchestrator.search_engine.arxiv_client, "search", return_value=[paper]),
+            patch.object(orchestrator.search_engine.scholar_client, "search", return_value=[]),
+            patch.object(orchestrator.search_engine.patent_client, "search", return_value=[]),
+            patch.object(orchestrator.search_engine, "query_vector_db", return_value=[]),
+        ):
+            res_d2 = orchestrator.orchestrate_workflow(query="quantum theory paper")
         self.assertEqual(res_d2["routed_domain"], "Domain 2")
         self.assertEqual(res_d2["status"], "success")
         self.assertIn("academic_search", res_d2["steps_executed"])

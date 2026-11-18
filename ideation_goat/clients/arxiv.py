@@ -5,7 +5,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from typing import Any, Dict, List
 
-from config import settings
+from ideation_goat.config import settings
 
 logger = logging.getLogger("IdeationGOAT.ArXivClient")
 

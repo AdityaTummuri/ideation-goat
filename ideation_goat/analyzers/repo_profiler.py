@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, timezone
 
 from github import Auth, Github
 
-from config import settings
+from ideation_goat.config import settings
 
 logger = logging.getLogger("IdeationGOAT.RepoProfiler")
 

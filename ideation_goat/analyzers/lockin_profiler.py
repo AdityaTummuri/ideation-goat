@@ -3,7 +3,7 @@ import json
 import re
 from typing import Any, Dict, List
 
-from analyzers.github_public_api import make_github_request, parse_owner_repo
+from ideation_goat.analyzers.github_public_api import make_github_request, parse_owner_repo
 
 VENDOR_PATTERNS = [
     (

@@ -1,8 +1,4 @@
 import sys
-from pathlib import Path
-
-# Adjust path to import root modules properly
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 # Force UTF-8 encoding on standard output for Windows consoles to support emojis/Unicode
 if hasattr(sys.stdout, "reconfigure"):
@@ -10,7 +6,7 @@ if hasattr(sys.stdout, "reconfigure"):
 
 
 # Import the tools
-from server import (
+from ideation_goat.server import (
     align_system_architecture,
     compose_solution_stack,
     get_repo_health,

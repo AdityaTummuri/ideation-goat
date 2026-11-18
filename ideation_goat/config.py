@@ -2,6 +2,10 @@ import os
 from pathlib import Path
 from typing import Optional
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 class Settings:
     """
@@ -27,7 +31,7 @@ class Settings:
     UNPAYWALL_EMAIL: Optional[str] = os.getenv("UNPAYWALL_EMAIL")
 
     # Security Boundary: Restricts all scaffolding writes and workspace scans to the workspace folder
-    WORKSPACE_ROOT: Path = Path(os.getenv("WORKSPACE_ROOT", str(Path(__file__).parent.resolve()))).resolve()
+    WORKSPACE_ROOT: Path = Path(os.getenv("WORKSPACE_ROOT", str(Path(__file__).parent.parent.resolve()))).resolve()
 
 
 settings = Settings()

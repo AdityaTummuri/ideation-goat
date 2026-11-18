@@ -3,10 +3,10 @@ import logging
 import urllib.request
 from typing import Any, Dict, List
 
-from arxiv_client import ArXivClient
-from config import settings
-from patent_client import PatentClient
-from scholar_client import ScholarClient
+from ideation_goat.clients.arxiv import ArXivClient
+from ideation_goat.clients.patent import PatentClient
+from ideation_goat.clients.scholar import ScholarClient
+from ideation_goat.config import settings
 
 logger = logging.getLogger("IdeationGOAT.SearchEngine")
 

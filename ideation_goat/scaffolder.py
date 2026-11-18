@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from typing import Any, Dict
 
-from config import settings
+from ideation_goat.config import settings
 
 logger = logging.getLogger("IdeationGOAT.Scaffolder")
 

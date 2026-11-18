@@ -2,7 +2,7 @@ import re
 from collections import Counter
 from typing import Any, Dict, List
 
-from analyzers.github_public_api import make_github_request, parse_owner_repo
+from ideation_goat.analyzers.github_public_api import make_github_request, parse_owner_repo
 
 try:
     from sklearn.cluster import KMeans

@@ -1,4 +1,4 @@
-name: CI Tests
+name: CI
 
 on:
   push:
@@ -20,14 +20,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install "mcp<2" pygithub pytest black ruff flake8 python-dotenv
+          pip install -e ".[dev]"
 
-      - name: Check Formatting & Linting
+      - name: Check formatting and linting
         run: |
           black --check .
           ruff check .
-          flake8 .
 
-      - name: Run Pytest
-        run: |
-          pytest tests/test_server.py -v
+      - name: Run tests
+        run: pytest -v

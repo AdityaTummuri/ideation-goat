@@ -22,7 +22,7 @@ class ScholarClient:
         Queries Semantic Scholar search endpoint and enriches open-access PDF links using Unpaywall.
         """
         formatted_query = urllib.parse.quote(query_term)
-        from config import settings
+        from ideation_goat.config import settings
 
         unpaywall_email = getattr(settings, "UNPAYWALL_EMAIL", None) or "support@ideationgoat.org"
 

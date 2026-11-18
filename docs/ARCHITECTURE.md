@@ -19,51 +19,47 @@ Ideation GOAT is built to operate under the following architectural guardrails:
 Below is a breakdown of what every file in this repository does.
 
 ```
-Ideation_GOAT/
-├── README.md                          <-- Core installation and usage guide
-├── LICENSE                            <-- License details (GPL-3.0/MIT alignment)
-├── assets/                            <-- Rich design assets and branding images
-│   ├── banner.png                     <-- Project aesthetic header banner
-│   └── logo.png                       <-- Project graphic logo
-├── app.py                             <-- Streamlit browser UI for local search/analysis
-├── server.py                          <-- Primary MCP Server entrypoint (exposes resources/tools)
-├── orchestrator.py                    <-- Multi-step diagnostic workflow orchestrator
-├── config.py                          <-- Centralized Settings (Chroma paths, API parameters)
-├── requirements.txt                   <-- Standard python environment dependencies list
-├── pyproject.toml                     <-- Project metadata and dependencies configuration
-├── mcp-config.json                    <-- Configuration settings for Claude Desktop
-├── nitro.config.json                  <-- NitroStack serverless compiler configuration
-├── package.json                       <-- Pnpm dependency package file for TypeScript
-├── data_ingestion.py                  <-- Ingestion script to crawl GitHub repos into ChromaDB
-├── search_engine.py                   <-- Target search and Discovery mode with similarity filter
-├── scaffolder.py                      <-- Safe project bootstrapper with path traversal guards
-├── repo_profiler.py                   <-- Edge MCU resource profiler & GitHub health telemetry
-├── arxiv_client.py                    <-- arXiv Atom XML API client (with retry backoff)
-├── scholar_client.py                  <-- Semantic Scholar & Unpaywall academic search client
-├── patent_client.py                   <-- Google Patents API query engine (via SerpApi)
-├── src/                               
-│   └── index.ts                       <-- TypeScript wrapper exposing `@Tool` endpoints
-├── analyzers/
-│   ├── bug_profiler.py                <-- TF-IDF issue landscape and chronic pitfalls classifier
-│   ├── compatibility_scorer.py        <-- Scoring utility comparing language/licensing weights
-│   ├── github_public_api.py           <-- Internal utility helper for fetching public repo files
-│   ├── health_analyzer.py             <-- OSV.dev CVE scanner and repo vitality analyzer
-│   ├── lockin_profiler.py             <-- Deep dependency tree proprietary cloud scan
-│   ├── workspace_analyzer.py          <-- Local configuration and import AST-parser
-│   ├── cost_forecaster.py             <-- Estimates operational hosting fees for cloud providers
-│   ├── cve_shield.py                  <-- OSV.dev scanner with severity-based execution gates
-│   ├── di_profiler.py                 <-- Scans codebases to check dependency injection setups
-│   ├── identity_sandbox.py            <-- JWT token validation and permission scope verification
-│   └── schema_healer.py               <-- Typo fuzzy-matcher and auto-corrector for parameters
-├── tests/                             
+ideation-goat/
+├── README.md                          <-- Installation and usage guide
+├── LICENSE                            <-- GPL-3.0
+├── pyproject.toml                     <-- Dependencies, packaging, black/ruff/pytest config
+├── mcp-config.json                    <-- Example MCP client configuration
+├── .env.example                       <-- Environment variable template
+├── assets/                            <-- Branding images (banner, logo)
+├── ideation_goat/                     <-- Python package
+│   ├── __main__.py                    <-- `python -m ideation_goat` entrypoint
+│   ├── server.py                      <-- MCP server (exposes the 24 tools and the canvas resource)
+│   ├── orchestrator.py                <-- Multi-step diagnostic workflow orchestrator
+│   ├── config.py                      <-- Centralized settings (Chroma paths, API parameters)
+│   ├── search_engine.py               <-- Target search and Discovery mode with similarity filter
+│   ├── scaffolder.py                  <-- Safe project bootstrapper with path traversal guards
+│   ├── ingestion.py                   <-- Script to crawl GitHub repos into ChromaDB
+│   ├── clients/
+│   │   ├── arxiv.py                   <-- arXiv Atom XML API client (with retry backoff)
+│   │   ├── scholar.py                 <-- Semantic Scholar & Unpaywall academic search client
+│   │   └── patent.py                  <-- Google Patents API query engine (via SerpApi)
+│   ├── analyzers/
+│   │   ├── bug_profiler.py            <-- TF-IDF issue landscape and chronic pitfalls classifier
+│   │   ├── compatibility_scorer.py    <-- Scoring utility comparing language/licensing weights
+│   │   ├── cost_forecaster.py         <-- Estimates operational hosting fees for cloud providers
+│   │   ├── cve_shield.py              <-- OSV.dev scanner with severity-based execution gates
+│   │   ├── di_profiler.py             <-- Scans codebases to check dependency injection setups
+│   │   ├── github_public_api.py       <-- Helper for fetching public repo files
+│   │   ├── health_analyzer.py         <-- OSV.dev CVE scanner and repo vitality analyzer
+│   │   ├── identity_sandbox.py        <-- JWT token validation and permission scope verification
+│   │   ├── lockin_profiler.py         <-- Deep dependency tree proprietary cloud scan
+│   │   ├── repo_profiler.py           <-- Edge MCU resource profiler & GitHub health telemetry
+│   │   ├── schema_healer.py           <-- Typo fuzzy-matcher and auto-corrector for parameters
+│   │   ├── workspace_analyzer.py      <-- Local configuration and import AST-parser
+│   │   └── workspace_fit.py           <-- Workspace/repo fit and architecture alignment
+│   └── ui/
+│       └── app.py                     <-- Streamlit browser UI for local search/analysis
+├── tests/
 │   ├── test_addons.py                 <-- Terminal helper script to run tools manually
-│   └── test_server.py                 <-- Offline test suite (32 unit tests covering all modules)
-└── docs/                              
+│   └── test_server.py                 <-- Offline test suite (32 tests covering all modules)
+└── docs/
     ├── ARCHITECTURE.md                <-- [You are here] System architecture guide
     ├── addons.md                      <-- Complete 24 tools and resource documentation
-    ├── NITROSTACK_INSTRUCTIONS.md     <-- Handover specs for TypeScript compilation
-    ├── UI_WIDGET_INSTRUCTIONS.md      <-- Blueprint instructions for React UI rendering
-    ├── FINAL_HANDOVER_REPORT.md       <-- Hackathon final deliverable report
     ├── Multi_Domain_Semantic_Architect.md <-- Functional design and domain specifications
     └── PITCH_SCRIPT.md                <-- Pitch script and presentation guidelines
 ```
@@ -77,22 +73,22 @@ Ideation_GOAT/
 *   **Role:** Initializes the `FastMCP("IdeationGOAT")` server. Exposes all endpoints as MCP tools or resources. Routes inputs, coordinates tasks, and handles global exception trapping.
 
 ### 2. Multi-Domain Search & Matching
-*   **Files:** `search_engine.py`, `arxiv_client.py`, `scholar_client.py`, `patent_client.py`
+*   **Files:** `search_engine.py`, `clients/arxiv.py`, `clients/scholar.py`, `clients/patent.py`
 *   **Role:**
     *   `search_engine.py` manages target-specific queries (combining ChromaDB search and academic paper feeds) and discovery-mode queries (which filter out `cs.*` categories using the *Inverse-Similarity Filter* to discover cross-domain analogies).
     *   The clients implement backoff logic and parse XML/JSON responses cleanly.
 
 ### 3. Local Workspace Profiling
-*   **Files:** `workspace_analyzer.py`, `analyzers/workspace_analyzer.py`
+*   **Files:** `analyzers/workspace_fit.py`, `analyzers/workspace_analyzer.py`
 *   **Role:**
     *   Inspects files in the workspace (read-only) using lightweight AST parsing (searching for imports like `react`, `express`, `fastapi`, etc.) and checking package configurations.
     *   Compares the local stack with the target repository language and license rules (`verify_workspace_fit`).
     *   Identifies the workspace layout structure (MVC, Hexagonal, Clean) and prints architectural integration instructions (`align_system_architecture`).
 
 ### 4. Telemetry, Vulnerability, and Risk Analyzers
-*   **Files:** `repo_profiler.py`, `analyzers/` sub-modules
+*   **Files:** `analyzers/repo_profiler.py` and the other `analyzers/` sub-modules
 *   **Role:**
-    *   `repo_profiler.py` queries GitHub and OSV.dev and estimates SRAM/Flash weights.
+    *   `analyzers/repo_profiler.py` queries GitHub and OSV.dev and estimates SRAM/Flash weights.
     *   `health_analyzer.py` audits open-source vitality and security (OSV.dev).
     *   `lockin_profiler.py` scans dependencies recursively to check for proprietary lock-in.
     *   `bug_profiler.py` runs clustering analyses on the last 100 bug issues to identify recurring operational hurdles.

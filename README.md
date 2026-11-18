@@ -5,8 +5,10 @@
   <p><strong>Cross-Domain Cross-Pollination & Ideation Engine for AI Agents</strong></p>
   
   <p>
-    <img src="https://img.shields.io/badge/Python-3.9+-blue.svg" alt="Python Version">
-    <img src="https://img.shields.io/badge/MCP-FastMCP-purple.svg" alt="MCP">
+    <img src="https://img.shields.io/badge/Python-3.12+-blue.svg" alt="Python 3.12+">
+    <img src="https://img.shields.io/badge/MCP-1.28+-purple.svg" alt="MCP SDK 1.28+">
+    <img src="https://img.shields.io/badge/ChromaDB-1.5+-orange.svg" alt="ChromaDB 1.5+">
+    <img src="https://img.shields.io/badge/tests-32%20passing-brightgreen.svg" alt="Tests">
     <img src="https://img.shields.io/badge/License-GPL--3.0-green.svg" alt="License">
   </p>
 </div>
@@ -16,7 +18,7 @@
 
 The Multi-Domain Semantic Architect Agent is an enterprise-grade Model Context Protocol server that operates as the analytical and creative subconscious of advanced AI coding agents. It exposes **24 autonomous diagnostic tools** spanning three distinct knowledge domains — codebases, academic research, and visual design — enabling AI agents to validate technical compatibility, audit supply-chain security, hybridize cross-domain concepts, and scaffold production-ready project architectures in a single unified pipeline.
 
-Powered by **Gemini 3.1 Flash Lite** for high-speed structural reasoning, enforced by **Zod-based auto-healing middleware** that self-corrects malformed LLM parameters at runtime, and deployed via the **NitroStack** framework for serverless MCP hosting on NitroCloud.
+Powered by **Gemini 3.1 Flash Lite** for high-speed structural reasoning, enforced by an **auto-healing parameter middleware** that self-corrects malformed LLM parameters at runtime.
 
 ---
 
@@ -46,7 +48,7 @@ graph TD
     %% TIER 2 — ENTERPRISE MIDDLEWARE
     %% ═══════════════════════════════════════════════════
     Gateway --> Sandbox{"🔐  Identity Sandbox\nJWT Verification · Scope Guard"}:::mw
-    Sandbox -->|"valid token"| Healer["🛡️  Parameter Auto-Healer\nZod Coercion · Typo Fuzzy-Match · Default Injection"]:::mw
+    Sandbox -->|"valid token"| Healer["🛡️  Parameter Auto-Healer\nType Coercion · Typo Fuzzy-Match · Default Injection"]:::mw
     Healer --> Brain
 
     %% ═══════════════════════════════════════════════════
@@ -104,8 +106,7 @@ graph TD
         D3_HYB["🧬  Concept Hybridization Engine\nCross-domain analogy · LaTeX formula · catalyst prompt"]:::d3node
         D3_AWW["🏆  Awwwards Design Scraper\nPremium UI pattern references"]:::d3node
         D3_DRI["🎯  Dribbble Palette Harvester\nColour system · layout moodboards"]:::d3node
-        D3_WID["⚛️  @nitrostack/widgets Renderer Panel\nHealth Dashboard · Design Moodboard widgets"]:::d3node
-        D3_CAN --> D3_HYB --> D3_AWW --> D3_DRI --> D3_WID
+        D3_CAN --> D3_HYB --> D3_AWW --> D3_DRI
     end
 
     D3_CAN -.->|"cache graph"| SessionCache[("💾  In-Memory\nSession Cache")]:::db
@@ -137,7 +138,7 @@ graph TD
 | 15 | `analyze_repo_bugs` | D1 | TF-IDF semantic clustering of chronic bug patterns |
 | 16 | `orchestrate_architectural_workflow` | D1 & D2 | Unified multi-step diagnostic pipeline orchestrator |
 | 17 | `forecast_live_costs` | D1 | Cloud hosting cost estimator (AWS, Vercel, Supabase, Neon) |
-| 18 | `auto_heal_parameters` | Core | Zod-based autonomous parameter type coercion and typo correction |
+| 18 | `auto_heal_parameters` | Core | Autonomous parameter type coercion and typo correction |
 | 19 | `verify_identity_token` | Core | JWT authentication sandbox with scope verification |
 | 20 | `profile_dependency_injection` | D1 | DI pattern quality scanner and modularity scorer |
 | 21 | `generate_docker_scaffolding` | D1 | Multi-stage Dockerfile and docker-compose generator |
@@ -150,10 +151,26 @@ graph TD
 | Feature | Technology | Description |
 |:--------|:-----------|:------------|
 | 🤖 **LLM Synthesis Engine** | Gemini 3.1 Flash Lite | Powers concept hybridization, semantic analysis, and cross-domain analogy generation |
-| 🛡️ **Zod Auto-Healing** | `@nitrostack/core` | Intercepts malformed LLM parameters at runtime, coerces types, corrects typos, applies defaults |
+| 🛡️ **Parameter Auto-Healing** | Typo fuzzy-matching | Intercepts malformed LLM parameters at runtime, coerces types, corrects typos, applies defaults |
 | 🔐 **Identity Sandbox** | PyJWT + OAuth 2.1 | Validates JWT tokens, enforces permission scopes, and gates privileged file operations |
 | 🌌 **Metaphor Canvas** | MCP Resource | Exposes interactive node-and-edge cognitive graphs for frontend visualization |
-| 📊 **Offline-First Testing** | Python unittest | 32/32 tests pass completely offline in under 2 seconds via mocked API interfaces |
+| 📊 **Offline-First Testing** | pytest | 32/32 tests pass completely offline in a couple of seconds via mocked API interfaces |
+
+### 🧱 Tech Stack
+
+| Component | Package | Minimum version |
+|:----------|:--------|:----------------|
+| Runtime | Python | 3.12 |
+| MCP server | `mcp` (FastMCP) | 1.28.1 |
+| Vector store | `chromadb` | 1.5.9 |
+| GitHub API | `pygithub` | 2.9.1 |
+| Identity sandbox | `pyjwt` | 2.8 |
+| HTTP client | `requests` | 2.31 |
+| Config loading | `python-dotenv` | 1.2.2 |
+| Browser UI (optional `ui` extra) | `streamlit` | 1.59.2 |
+| Tooling (`dev` extra) | `pytest`, `black`, `ruff` | latest |
+
+LLM synthesis uses Gemini (`gemini-3.1-flash-lite`) when `GEMINI_API_KEY` is set, with OpenAI as a fallback when `OPENAI_API_KEY` is set.
 
 ---
 
@@ -166,22 +183,17 @@ git clone https://github.com/suzaykid/ideation-goat.git
 cd ideation-goat
 ```
 
-### 2. Install Python Core Dependencies
+### 2. Install Dependencies
+
+Requires Python 3.12+.
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
+pip install -e ".[dev]"      # add ",ui" for the optional Streamlit app: pip install -e ".[dev,ui]"
 ```
 
-### 3. Install TypeScript Wrapper Dependencies
-
-```bash
-npm install
-```
-
-### 4. Configure Environment Variables
+### 3. Configure Environment Variables
 
 ```bash
 cp .env.example .env
@@ -194,15 +206,7 @@ Open `.env` and populate the required keys:
 | `GEMINI_API_KEY` | Gemini 3.1 Flash Lite API key for LLM synthesis |
 | `GITHUB_TOKEN` | GitHub Personal Access Token (optional, bypasses rate limits) |
 | `GITLAB_API_TOKEN` | GitLab API token for project registry searches |
-| `CHROMA_DB_PATH` | Local path to ChromaDB vector store collection |
-
----
-
-### 4. Install Dependencies
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
-```
+| `CHROMA_PATH` | Local path to ChromaDB vector store collection |
 
 ---
 
@@ -211,7 +215,7 @@ pip install -r requirements.txt
 ### Standalone stdio Mode
 You can run the server directly in your terminal to verify that it starts correctly:
 ```bash
-python server.py
+python -m ideation_goat
 ```
 
 ### Integration with Claude Desktop
@@ -228,9 +232,8 @@ Replace `/ABSOLUTE/PATH/TO/ideation-goat` with the actual absolute path to your 
   "mcpServers": {
     "ideation-goat": {
       "command": "/ABSOLUTE/PATH/TO/ideation-goat/.venv/bin/python",
-      "args": [
-        "/ABSOLUTE/PATH/TO/ideation-goat/server.py"
-      ]
+      "args": ["-m", "ideation_goat"],
+      "cwd": "/ABSOLUTE/PATH/TO/ideation-goat"
     }
   }
 }
@@ -242,9 +245,8 @@ Replace `/ABSOLUTE/PATH/TO/ideation-goat` with the actual absolute path to your 
   "mcpServers": {
     "ideation-goat": {
       "command": "C:\\ABSOLUTE\\PATH\\TO\\ideation-goat\\.venv\\Scripts\\python.exe",
-      "args": [
-        "C:\\ABSOLUTE\\PATH\\TO\\ideation-goat\\server.py"
-      ]
+      "args": ["-m", "ideation_goat"],
+      "cwd": "C:\\ABSOLUTE\\PATH\\TO\\ideation-goat"
     }
   }
 }
@@ -253,7 +255,7 @@ Replace `/ABSOLUTE/PATH/TO/ideation-goat` with the actual absolute path to your 
 
 ## 🧪 Running the Offline Test Suite
 
-Ideation GOAT features a comprehensive, enterprise-grade automated test suite containing **32 unit and integration tests** designed to validate every autonomous tool, routing rule, and middleware layer. The test suite is optimized for maximum execution speed, running fully offline in under 2 seconds.
+Ideation GOAT features a comprehensive, enterprise-grade automated test suite containing **32 unit and integration tests** designed to validate every autonomous tool, routing rule, and middleware layer. The test suite is optimized for maximum execution speed, running fully offline in a couple of seconds.
 
 ### 🛡️ Mock-Driven Offline Architecture
 To ensure the test suite is 100% reliable, fast, and does not hit rate-limiting thresholds or require active API credentials, all external network requests are aggressively mocked:
@@ -276,14 +278,13 @@ The test suite explicitly asserts security constraints:
 You can run the test suite using either the default Python `unittest` framework or `pytest` within your active virtual environment:
 
 #### Option A: Using pytest (Recommended)
-If you are using the local `.ig` virtual environment:
 ```bash
-./.ig/bin/pytest
+pytest
 ```
 
 #### Option B: Using standard Python unittest
 ```bash
-./.ig/bin/python -m unittest discover -s tests
+python -m unittest discover -s tests
 ```
 
 ---

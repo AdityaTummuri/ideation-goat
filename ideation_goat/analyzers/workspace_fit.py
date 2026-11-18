@@ -6,7 +6,7 @@ from typing import Set
 
 from github import Auth, Github
 
-from config import settings
+from ideation_goat.config import settings
 
 logger = logging.getLogger("IdeationGOAT.WorkspaceAnalyzer")
 

@@ -195,15 +195,15 @@ if db_count == 0:
         unsafe_allow_html=True,
     )
 
-    st.code("python data_ingestion.py -l all -m 50", language="bash")
+    st.code("python -m ideation_goat.ingestion -l all -m 50", language="bash")
     st.info(
         "💡 Note: You can create a `.env` file containing `GITHUB_TOKEN=your_token` in the root folder to prevent rate limit limits."
     )
 else:
     # Import our new discovery tools
-    from repo_profiler import RepoProfiler
-    from search_engine import CrossDomainSearchEngine
-    from workspace_analyzer import WorkspaceAnalyzer
+    from ideation_goat.analyzers.repo_profiler import RepoProfiler
+    from ideation_goat.analyzers.workspace_fit import WorkspaceAnalyzer
+    from ideation_goat.search_engine import CrossDomainSearchEngine
 
     workspace_analyzer = WorkspaceAnalyzer()
     repo_profiler = RepoProfiler()

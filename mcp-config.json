@@ -2,9 +2,7 @@
   "mcpServers": {
     "ideation-goat": {
       "command": "python",
-      "args": [
-        "server.py"
-      ],
+      "args": ["-m", "ideation_goat"],
       "env": {
         "WORKSPACE_ROOT": "."
       }

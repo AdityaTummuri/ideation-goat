@@ -1,6 +1,6 @@
 """
 ================================================================================
-NITROSTACK MASTER ROUTER & ORCHESTRATION PIPELINE
+MASTER ROUTER & ORCHESTRATION PIPELINE
 ================================================================================
 ROLE: Master Router (Orchestrator Core)
 TARGET CHANNELS:
@@ -30,16 +30,16 @@ WARNING: DO NOT ALTER THE CORE EXECUTION LOGIC.
 import logging
 from typing import Any, Dict, List, Optional
 
-from analyzers.bug_profiler import analyze_repo_bugs as run_bug_profiler
-from analyzers.health_analyzer import analyze_repo_health
-from analyzers.lockin_profiler import check_ecosystem_lockin as run_lockin_profiler
+from ideation_goat.analyzers.bug_profiler import analyze_repo_bugs as run_bug_profiler
+from ideation_goat.analyzers.health_analyzer import analyze_repo_health
+from ideation_goat.analyzers.lockin_profiler import check_ecosystem_lockin as run_lockin_profiler
+from ideation_goat.analyzers.repo_profiler import RepoProfiler
 
 # Import modular analyzers
-from analyzers.workspace_analyzer import analyze_workspace
-from repo_profiler import RepoProfiler
-from scaffolder import ProjectScaffolder
-from search_engine import CrossDomainSearchEngine
-from workspace_analyzer import WorkspaceAnalyzer
+from ideation_goat.analyzers.workspace_analyzer import analyze_workspace
+from ideation_goat.analyzers.workspace_fit import WorkspaceAnalyzer
+from ideation_goat.scaffolder import ProjectScaffolder
+from ideation_goat.search_engine import CrossDomainSearchEngine
 
 logger = logging.getLogger("IdeationGOAT.Orchestrator")
 
@@ -47,7 +47,7 @@ logger = logging.getLogger("IdeationGOAT.Orchestrator")
 class WorkflowOrchestrator:
     """
     Orchestrates the end-to-end analytical pipeline for ideation and workspace validation.
-    Acts as the definitive Master Router for the Nitrostack MCP platform.
+    Acts as the definitive Master Router for the Ideation GOAT MCP server.
     """
 
     def __init__(self):

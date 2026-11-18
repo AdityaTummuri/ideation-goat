@@ -13,7 +13,7 @@ CACHE_TTL_SECONDS = 3600  # 1 hour cache duration
 
 
 def get_github_headers() -> Dict[str, str]:
-    headers = {"Accept": "application/vnd.github.v3+json", "User-Agent": "NitroForge-Semantic-Matcher"}
+    headers = {"Accept": "application/vnd.github.v3+json", "User-Agent": "IdeationGOAT-Semantic-Matcher"}
     token = os.getenv("GITHUB_TOKEN")
     if token:
         headers["Authorization"] = f"token {token}"

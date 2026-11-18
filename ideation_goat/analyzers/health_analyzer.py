@@ -3,7 +3,7 @@ from typing import Any, Dict, List
 
 import requests
 
-from analyzers.github_public_api import make_github_request, parse_owner_repo
+from ideation_goat.analyzers.github_public_api import make_github_request, parse_owner_repo
 
 
 def query_osv_vulnerabilities(package_name: str, language: str) -> List[Dict[str, Any]]:

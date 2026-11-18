@@ -61,4 +61,4 @@
 
 > "IdeationGOAT transforms unstructured ideas into structured, secure, and IP-compliant engineering roadmaps in under 10 seconds. It operates offline-first, includes a CVE-shield that stops deployments on insecure packages, and generates beautiful responsive UI components automatically.
 > 
-> Stop guessing, stop reinventing, and stop risking IP claims. Deploy IdeationGOAT with `nitro deploy --prod` and bridge the gap between research and reality today."
+> Stop guessing, stop reinventing, and stop risking IP claims. Add IdeationGOAT to your MCP client and bridge the gap between research and reality today."
