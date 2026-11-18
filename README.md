@@ -161,7 +161,7 @@ graph TD
 | Component | Package | Minimum version |
 |:----------|:--------|:----------------|
 | Runtime | Python | 3.12 |
-| MCP server | `mcp` (FastMCP) | 1.28.1 |
+| MCP server | `mcp` (FastMCP) | 1.28.1 (<2) |
 | Vector store | `chromadb` | 1.5.9 |
 | GitHub API | `pygithub` | 2.9.1 |
 | Identity sandbox | `pyjwt` | 2.8 |
