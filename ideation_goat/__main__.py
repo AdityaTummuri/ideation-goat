@@ -1,4 +1,5 @@
-from ideation_goat.server import main
+import sys
 
-if __name__ == "__main__":
-    main()
+from ideation_goat.cli import main
+
+sys.exit(main())

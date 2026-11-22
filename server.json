@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.AdityaTummuri/ideation-goat",
+  "description": "Find open-source libraries for an idea and check they're safe to depend on, with sourced signals.",
+  "repository": {
+    "url": "https://github.com/AdityaTummuri/ideation-goat",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "ideation-goat",
+      "version": "0.1.0",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "GITHUB_TOKEN",
+          "description": "Optional GitHub token; raises the API limit from 60 to 5,000 requests an hour",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

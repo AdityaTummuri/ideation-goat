@@ -5,41 +5,81 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ideation-goat"
 version = "0.1.0"
-description = "Cross-domain ideation MCP server: codebase matching, academic literature search (Semantic Scholar, arXiv) and patent search (Google Patents via SerpApi)"
+description = "Find open-source libraries for an idea and check whether they're safe to depend on, with every signal sourced. MCP server, CLI and web demo."
 readme = "README.md"
 requires-python = ">=3.12"
-license = { file = "LICENSE" }
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+keywords = ["mcp", "model-context-protocol", "open-source", "dependencies", "osv", "supply-chain", "search"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Security",
+]
 dependencies = [
-    "chromadb>=1.5.9",
-    "mcp>=1.28.1,<2",
-    "pygithub>=2.9.1",
-    "pyjwt>=2.8",
-    "python-dotenv>=1.2.2",
-    "requests>=2.31",
+    "defusedxml>=0.7.1",
+    "fastembed>=0.5",
+    "httpx>=0.28",
+    "mcp>=2.3,<3",
+    "numpy>=1.26",
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
 ]
 
 [project.optional-dependencies]
-ui = ["streamlit>=1.59.2"]
-dev = ["black", "pytest", "ruff"]
+ui = ["streamlit>=1.40"]
+dev = [
+    "mypy>=1.13",
+    "pytest>=8.3",
+    "pytest-cov>=6.0",
+    "pyyaml>=6.0",
+    "respx>=0.22",
+    "ruff>=0.8",
+    "types-pyyaml",
+    "types-defusedxml",
+]
+
+[project.urls]
+Homepage = "https://github.com/AdityaTummuri/ideation-goat"
+Issues = "https://github.com/AdityaTummuri/ideation-goat/issues"
 
 [project.scripts]
-ideation-goat = "ideation_goat.server:main"
+ideation-goat = "ideation_goat.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["ideation_goat*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["."]
+addopts = "-q"
+markers = ["network: hits real APIs (deselected by default in CI)"]
 
-[tool.black]
-line-length = 120
-target-version = ["py312"]
+[tool.coverage.run]
+source = ["ideation_goat"]
+omit = ["ideation_goat/ui/*"]
 
 [tool.ruff]
-line-length = 120
+line-length = 110
 target-version = "py312"
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I"]
-ignore = ["E501", "W293"]
+select = ["E", "F", "W", "I", "B", "S", "ASYNC", "UP", "T20"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"ideation_goat/cli.py" = ["T20"]
+"evals/*" = ["T20"]
+"tests/*" = ["S", "T20", "E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = false
+plugins = ["pydantic.mypy"]
+exclude = ["ideation_goat/ui/"]
+
+[[tool.mypy.overrides]]
+module = ["fastembed.*", "streamlit.*"]
+ignore_missing_imports = true

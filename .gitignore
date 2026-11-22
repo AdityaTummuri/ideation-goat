@@ -13,19 +13,19 @@ dist/
 # Test & coverage
 .pytest_cache/
 .ruff_cache/
+.mypy_cache/
 .coverage
 htmlcov/
 
 # Local config & data
 .env
-chroma_data/
+.streamlit/secrets.toml
+index/
+*.tar.gz
+eval-report.json
 
 # Editors & OS
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
-
-# Temporary directories created by the test suite
-tmp*/
-.tmp*/

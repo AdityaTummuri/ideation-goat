@@ -1,0 +1,144 @@
+# Labeled retrieval queries. Each lists repos a good engineer would accept as an answer.
+# Metrics count only accepted repos that are present in the index (coverage is reported).
+- query: async Python web framework for building APIs
+  accept: [fastapi/fastapi, encode/starlette, litestar-org/litestar, sanic-org/sanic, aio-libs/aiohttp]
+- query: lightweight Python web microframework
+  accept: [pallets/flask, bottlepy/bottle, falconry/falcon]
+- query: full-featured Python web framework with an admin panel and ORM
+  accept: [django/django]
+- query: data validation using Python type hints
+  accept: [pydantic/pydantic, python-attrs/attrs, marshmallow-code/marshmallow, jcrist/msgspec]
+- query: HTTP client for Python with async support
+  accept: [encode/httpx, aio-libs/aiohttp, psf/requests]
+- query: Python ORM for SQL databases
+  accept: [sqlalchemy/sqlalchemy, coleifer/peewee, tortoise/tortoise-orm, fastapi/sqlmodel]
+- query: database schema migrations for SQLAlchemy
+  accept: [sqlalchemy/alembic]
+- query: distributed task queue for background jobs in Python
+  accept: [celery/celery, rq/rq, coleifer/huey, Bogdanp/dramatiq]
+- query: build command line interfaces in Python
+  accept: [pallets/click, fastapi/typer, google/python-fire]
+- query: rich text and beautiful formatting in the terminal
+  accept: [Textualize/rich, Textualize/textual]
+- query: dataframe library for fast data analysis
+  accept: [pandas-dev/pandas, pola-rs/polars, ibis-project/ibis]
+- query: deep learning framework with GPU tensors and autograd
+  accept: [pytorch/pytorch, tensorflow/tensorflow, jax-ml/jax, keras-team/keras]
+- query: web scraping and crawling framework
+  accept: [scrapy/scrapy, D4Vinci/Scrapling, apify/crawlee, unclecode/crawl4ai]
+- query: browser automation for end-to-end testing
+  accept: [microsoft/playwright, puppeteer/puppeteer, SeleniumHQ/selenium, cypress-io/cypress, microsoft/playwright-python]
+- query: Python testing framework
+  accept: [pytest-dev/pytest, HypothesisWorks/hypothesis, tox-dev/tox]
+- query: Python linter and code formatter
+  accept: [astral-sh/ruff, psf/black, pylint-dev/pylint, PyCQA/flake8]
+- query: static type checker for Python
+  accept: [python/mypy, microsoft/pyright, facebook/pyre-check, astral-sh/ty]
+- query: Python package and dependency manager
+  accept: [astral-sh/uv, python-poetry/poetry, pypa/pipenv, pdm-project/pdm]
+- query: framework for building LLM applications and agents
+  accept: [langchain-ai/langchain, run-llama/llama_index, deepset-ai/haystack, microsoft/autogen, crewAIInc/crewAI]
+- query: vector database for embedding similarity search
+  accept: [chroma-core/chroma, qdrant/qdrant, milvus-io/milvus, weaviate/weaviate, facebookresearch/faiss]
+- query: speech recognition and audio transcription
+  accept: [openai/whisper, SYSTRAN/faster-whisper, ggml-org/whisper.cpp, m-bain/whisperX]
+- query: interactive web apps for machine learning demos in Python
+  accept: [streamlit/streamlit, gradio-app/gradio, plotly/dash, reflex-dev/reflex]
+- query: workflow orchestration and scheduling for data pipelines
+  accept: [apache/airflow, PrefectHQ/prefect, dagster-io/dagster, spotify/luigi]
+- query: real-time object detection in images and video
+  accept: [ultralytics/ultralytics, opencv/opencv, facebookresearch/detectron2]
+- query: download videos from YouTube and other sites
+  accept: [yt-dlp/yt-dlp, ytdl-org/youtube-dl]
+- query: machine learning library for classical algorithms and gradient boosting
+  accept: [scikit-learn/scikit-learn, dmlc/xgboost, microsoft/LightGBM, catboost/catboost]
+- query: plotting and data visualization in Python
+  accept: [matplotlib/matplotlib, plotly/plotly.py, mwaskom/seaborn, bokeh/bokeh]
+- query: documentation site generator for Python projects
+  accept: [squidfunk/mkdocs-material, mkdocs/mkdocs, sphinx-doc/sphinx]
+- query: image processing library for Python
+  accept: [python-pillow/Pillow, scikit-image/scikit-image, opencv/opencv]
+- query: run large language models locally
+  accept: [ollama/ollama, ggml-org/llama.cpp, vllm-project/vllm, lm-sys/FastChat]
+- query: fine-tune transformer language models efficiently
+  accept: [huggingface/transformers, huggingface/peft, unslothai/unsloth, hiyouga/LLaMA-Factory]
+- query: declarative UI component library for building user interfaces
+  accept: [facebook/react, vuejs/core, sveltejs/svelte, preactjs/preact, solidjs/solid]
+- query: React framework for server-side rendering and static sites
+  accept: [vercel/next.js, remix-run/remix, gatsbyjs/gatsby, withastro/astro]
+- query: fast frontend build tool and bundler
+  accept: [vitejs/vite, webpack/webpack, evanw/esbuild, parcel-bundler/parcel, rollup/rollup]
+- query: minimal web server framework for Node.js
+  accept: [expressjs/express, fastify/fastify, koajs/koa, honojs/hono, nestjs/nest]
+- query: TypeScript ORM for SQL databases
+  accept: [prisma/prisma, drizzle-team/drizzle-orm, typeorm/typeorm, sequelize/sequelize, mikro-orm/mikro-orm]
+- query: state management for React apps
+  accept: [reduxjs/redux, pmndrs/zustand, pmndrs/jotai, mobxjs/mobx, reduxjs/redux-toolkit]
+- query: TypeScript-first schema validation
+  accept: [colinhacks/zod, sinclairzx81/typebox, jquense/yup, fabian-hiller/valibot, ajv-validator/ajv]
+- query: JavaScript unit testing framework
+  accept: [jestjs/jest, vitest-dev/vitest, mochajs/mocha, avajs/ava]
+- query: data fetching and server state caching for React
+  accept: [TanStack/query, vercel/swr, apollographql/apollo-client]
+- query: utility-first CSS framework
+  accept: [tailwindlabs/tailwindcss, unocss/unocss]
+- query: rich text editor for the web
+  accept: [ueberdosis/tiptap, slab/quill, facebook/lexical, ianstormtaylor/slate]
+- query: charting library for JavaScript
+  accept: [chartjs/Chart.js, apache/echarts, d3/d3, recharts/recharts]
+- query: promise-based HTTP client for the browser and Node.js
+  accept: [axios/axios, sindresorhus/ky, sindresorhus/got]
+- query: date and time manipulation library for JavaScript
+  accept: [date-fns/date-fns, iamkun/dayjs, moment/luxon, moment/moment]
+- query: build cross-platform desktop apps with web technologies
+  accept: [electron/electron, tauri-apps/tauri]
+- query: build native mobile apps with JavaScript
+  accept: [facebook/react-native, ionic-team/ionic-framework, expo/expo]
+- query: real-time bidirectional communication over websockets
+  accept: [socketio/socket.io, websockets/ws]
+- query: markdown parser and compiler
+  accept: [markedjs/marked, markdown-it/markdown-it, remarkjs/remark]
+- query: 3D graphics in the browser with WebGL
+  accept: [mrdoob/three.js, BabylonJS/Babylon.js, pmndrs/react-three-fiber]
+- query: monorepo build system with caching
+  accept: [vercel/turborepo, nrwl/nx, lerna/lerna]
+- query: open-source headless CMS
+  accept: [strapi/strapi, payloadcms/payload, directus/directus, keystonejs/keystone]
+- query: HTTP web framework for Go
+  accept: [gin-gonic/gin, labstack/echo, gofiber/fiber, go-chi/chi, gorilla/mux]
+  language: Go
+- query: ORM and database toolkit for Go
+  accept: [go-gorm/gorm, ent/ent, uptrace/bun, sqlc-dev/sqlc]
+- query: library for building command line applications in Go
+  accept: [spf13/cobra, urfave/cli, charmbracelet/bubbletea, alecthomas/kong]
+- query: fast structured logging
+  accept: [uber-go/zap, sirupsen/logrus, rs/zerolog]
+  language: Go
+- query: container orchestration platform
+  accept: [kubernetes/kubernetes, hashicorp/nomad, k3s-io/k3s]
+- query: reverse proxy and load balancer with automatic HTTPS
+  accept: [traefik/traefik, caddyserver/caddy]
+- query: time series monitoring metrics and alerting
+  accept: [prometheus/prometheus, grafana/grafana, VictoriaMetrics/VictoriaMetrics]
+- query: infrastructure as code tool
+  accept: [hashicorp/terraform, opentofu/opentofu, pulumi/pulumi]
+- query: asynchronous runtime for Rust
+  accept: [tokio-rs/tokio, smol-rs/smol]
+- query: web framework for Rust
+  accept: [tokio-rs/axum, actix/actix-web, rwf2/Rocket, poem-web/poem]
+- query: serialization and deserialization framework for Rust
+  accept: [serde-rs/serde, serde-rs/json]
+- query: fast recursive search tool, grep alternative
+  accept: [BurntSushi/ripgrep, sharkdp/fd]
+- query: GPU-accelerated terminal emulator
+  accept: [alacritty/alacritty, wezterm/wezterm, kovidgoyal/kitty]
+- query: cross-platform GUI framework for Rust
+  accept: [iced-rs/iced, emilk/egui, slint-ui/slint, tauri-apps/tauri]
+- query: Java framework for microservices and web applications
+  accept: [spring-projects/spring-boot, quarkusio/quarkus, micronaut-projects/micronaut-core, eclipse-vertx/vert.x]
+- query: JSON parsing and serialization library for Java
+  accept: [FasterXML/jackson-databind, google/gson, alibaba/fastjson2]
+- query: HTTP client for Java and Android
+  accept: [square/okhttp, square/retrofit]
+- query: distributed full-text search engine
+  accept: [elastic/elasticsearch, opensearch-project/OpenSearch, meilisearch/meilisearch, typesense/typesense, quickwit-oss/tantivy]
