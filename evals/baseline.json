@@ -1,0 +1,317 @@
+{
+  "index_built_at": "2026-11-22T21:02:47+00:00",
+  "index_repos": 4800,
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "queries": 70,
+  "queries_scored": 68,
+  "label_coverage": 0.809,
+  "results": [
+    {
+      "mode": "embeddings",
+      "recall_at_5": 0.578,
+      "mrr_at_10": 0.711,
+      "ndcg_at_10": 0.608,
+      "p50_ms": 3.4,
+      "p95_ms": 4.7,
+      "misses": [
+        {
+          "query": "framework for building LLM applications and agents",
+          "top3": [
+            "humanlayer/12-factor-agents",
+            "bytedance/trae-agent",
+            "mlflow/mlflow"
+          ],
+          "wanted": [
+            "crewaiinc/crewai",
+            "deepset-ai/haystack",
+            "langchain-ai/langchain",
+            "run-llama/llama_index"
+          ]
+        },
+        {
+          "query": "machine learning library for classical algorithms and gradient boosting",
+          "top3": [
+            "cjlin1/libsvm",
+            "gorgonia/gorgonia",
+            "optuna/optuna"
+          ],
+          "wanted": [
+            "scikit-learn/scikit-learn"
+          ]
+        },
+        {
+          "query": "declarative UI component library for building user interfaces",
+          "top3": [
+            "shadcn-ui/ui",
+            "riot/riot",
+            "segmentio/evergreen"
+          ],
+          "wanted": [
+            "preactjs/preact",
+            "solidjs/solid",
+            "sveltejs/svelte",
+            "vuejs/core"
+          ]
+        },
+        {
+          "query": "build cross-platform desktop apps with web technologies",
+          "top3": [
+            "zserge/lorca",
+            "egoist/mygo",
+            "luckjiawei/frpc-desktop"
+          ],
+          "wanted": [
+            "tauri-apps/tauri"
+          ]
+        },
+        {
+          "query": "build native mobile apps with JavaScript",
+          "top3": [
+            "nativescript/nativescript",
+            "onsenui/onsenui",
+            "ionic-team/capacitor"
+          ],
+          "wanted": [
+            "expo/expo",
+            "ionic-team/ionic-framework"
+          ]
+        },
+        {
+          "query": "container orchestration platform",
+          "top3": [
+            "docker/compose",
+            "moby/moby",
+            "containerd/containerd"
+          ],
+          "wanted": [
+            "hashicorp/nomad",
+            "k3s-io/k3s",
+            "kubernetes/kubernetes"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "bm25",
+      "recall_at_5": 0.467,
+      "mrr_at_10": 0.659,
+      "ndcg_at_10": 0.523,
+      "p50_ms": 2.8,
+      "p95_ms": 5.5,
+      "misses": [
+        {
+          "query": "full-featured Python web framework with an admin panel and ORM",
+          "top3": [
+            "seaql/sea-orm",
+            "encode/django-rest-framework",
+            "go-gorm/gorm"
+          ],
+          "wanted": [
+            "django/django"
+          ]
+        },
+        {
+          "query": "Python testing framework",
+          "top3": [
+            "locustio/locust",
+            "manisso/fsociety",
+            "robotframework/robotframework"
+          ],
+          "wanted": [
+            "pytest-dev/pytest"
+          ]
+        },
+        {
+          "query": "real-time object detection in images and video",
+          "top3": [
+            "roboflow/supervision",
+            "open-mmlab/mmdetection",
+            "tensorflow/tfjs-models"
+          ],
+          "wanted": [
+            "facebookresearch/detectron2",
+            "ultralytics/ultralytics"
+          ]
+        },
+        {
+          "query": "machine learning library for classical algorithms and gradient boosting",
+          "top3": [
+            "angel-ml/angel",
+            "haifengl/smile",
+            "tracel-ai/burn"
+          ],
+          "wanted": [
+            "scikit-learn/scikit-learn"
+          ]
+        },
+        {
+          "query": "run large language models locally",
+          "top3": [
+            "laion-ai/open-assistant",
+            "microsoft/jarvis",
+            "vision-cair/minigpt-4"
+          ],
+          "wanted": [
+            "lm-sys/fastchat",
+            "ollama/ollama",
+            "vllm-project/vllm"
+          ]
+        },
+        {
+          "query": "fine-tune transformer language models efficiently",
+          "top3": [
+            "hiyouga/llamafactory",
+            "ludwig-ai/ludwig",
+            "huggingface/skills"
+          ],
+          "wanted": [
+            "huggingface/peft",
+            "huggingface/transformers",
+            "unslothai/unsloth"
+          ]
+        },
+        {
+          "query": "fast frontend build tool and bundler",
+          "top3": [
+            "umijs/qiankun",
+            "web-infra-dev/rspack",
+            "farm-fe/farm"
+          ],
+          "wanted": [
+            "evanw/esbuild",
+            "parcel-bundler/parcel",
+            "rollup/rollup",
+            "vitejs/vite",
+            "webpack/webpack"
+          ]
+        },
+        {
+          "query": "minimal web server framework for Node.js",
+          "top3": [
+            "sissbruecker/linkding",
+            "remix-run/remix",
+            "systemjs/systemjs"
+          ],
+          "wanted": [
+            "expressjs/express",
+            "fastify/fastify",
+            "honojs/hono",
+            "koajs/koa",
+            "nestjs/nest"
+          ]
+        },
+        {
+          "query": "date and time manipulation library for JavaScript",
+          "top3": [
+            "iib0011/omni-tools",
+            "alasql/alasql",
+            "gka/chroma.js"
+          ],
+          "wanted": [
+            "date-fns/date-fns",
+            "iamkun/dayjs",
+            "moment/luxon",
+            "moment/moment"
+          ]
+        },
+        {
+          "query": "build cross-platform desktop apps with web technologies",
+          "top3": [
+            "nwjs/nw.js",
+            "textualize/textual",
+            "flet-dev/flet"
+          ],
+          "wanted": [
+            "tauri-apps/tauri"
+          ]
+        },
+        {
+          "query": "HTTP web framework for Go",
+          "top3": [
+            "0voice/introduction-to-golang",
+            "andeya/pholcus",
+            "geektutu/7days-golang"
+          ],
+          "wanted": [
+            "gin-gonic/gin",
+            "go-chi/chi",
+            "gofiber/fiber",
+            "gorilla/mux",
+            "labstack/echo"
+          ]
+        },
+        {
+          "query": "container orchestration platform",
+          "top3": [
+            "rancher/rancher",
+            "psviderski/uncloud",
+            "docker/compose"
+          ],
+          "wanted": [
+            "hashicorp/nomad",
+            "k3s-io/k3s",
+            "kubernetes/kubernetes"
+          ]
+        },
+        {
+          "query": "serialization and deserialization framework for Rust",
+          "top3": [
+            "rkyv/rkyv",
+            "chronotope/chrono",
+            "alibaba/fastjson2"
+          ],
+          "wanted": [
+            "serde-rs/json",
+            "serde-rs/serde"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "hybrid",
+      "recall_at_5": 0.634,
+      "mrr_at_10": 0.736,
+      "ndcg_at_10": 0.658,
+      "p50_ms": 7.7,
+      "p95_ms": 11.7,
+      "misses": [
+        {
+          "query": "real-time object detection in images and video",
+          "top3": [
+            "thu-mig/yolov10",
+            "open-mmlab/mmdetection",
+            "paddlepaddle/paddledetection"
+          ],
+          "wanted": [
+            "facebookresearch/detectron2",
+            "ultralytics/ultralytics"
+          ]
+        },
+        {
+          "query": "machine learning library for classical algorithms and gradient boosting",
+          "top3": [
+            "haifengl/smile",
+            "gorgonia/gorgonia",
+            "rust-ml/linfa"
+          ],
+          "wanted": [
+            "scikit-learn/scikit-learn"
+          ]
+        },
+        {
+          "query": "container orchestration platform",
+          "top3": [
+            "docker/compose",
+            "psviderski/uncloud",
+            "rancher/rancher"
+          ],
+          "wanted": [
+            "hashicorp/nomad",
+            "k3s-io/k3s",
+            "kubernetes/kubernetes"
+          ]
+        }
+      ]
+    }
+  ]
+}

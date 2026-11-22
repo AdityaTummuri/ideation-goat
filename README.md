@@ -139,7 +139,15 @@ It's a signal to help you decide, not a security audit.
 ## Evaluation
 
 <!-- eval:start -->
-_Pending the first index build._
+| Setup | Recall@5 | MRR@10 | nDCG@10 | Search latency (p50 / p95) |
+| --- | --- | --- | --- | --- |
+| Embeddings only | 0.578 | 0.711 | 0.608 | 3 / 5 ms |
+| BM25 only | 0.467 | 0.659 | 0.523 | 3 / 6 ms |
+| **Hybrid (RRF)** | **0.634** | **0.736** | **0.658** | 8 / 12 ms |
+
+Measured on 23 Nov 2026 over a 4,800-repo index (68 of 70 queries scored; 81% of labeled repos are in
+the index). Hybrid retrieval beats either method alone. Latency is local search only; live signals add
+network time, cached for 24 hours.
 <!-- eval:end -->
 
 Retrieval is measured on [70 labeled queries](evals/queries.yaml), each with the repos a good engineer
