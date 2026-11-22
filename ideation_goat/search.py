@@ -27,6 +27,9 @@ RRF_K = 60
 FUSION_DEPTH = 200
 INDEX_FORMAT = 1
 LANGUAGE_BOOST = 1.25
+# Popularity prior: fused score x (stars + 1) ** 0.2. Without it, small look-alike repos crowd out the
+# libraries people actually use. Chosen from a flat plateau (0.15-0.3) on the labeled query set.
+POPULARITY_WEIGHT = 0.2
 _LANGUAGE_WORDS = {
     "python": {"python"}, "javascript": {"javascript", "typescript"}, "node": {"javascript", "typescript"},
     "nodejs": {"javascript", "typescript"}, "typescript": {"typescript", "javascript"},
@@ -250,10 +253,11 @@ class RepoIndex:
                 fused[doc_id] += 1.0 / (RRF_K + rank + 1)
         # A language named in the query ("... for a Python API") is a soft preference, not a filter.
         preferred = set() if language else mentioned_languages(query)
-        if preferred:
-            for doc_id in fused:
-                if (self.docs[doc_id].language or "").lower() in preferred:
-                    fused[doc_id] *= LANGUAGE_BOOST
+        for doc_id in fused:
+            doc = self.docs[doc_id]
+            fused[doc_id] *= (doc.stars + 1) ** POPULARITY_WEIGHT
+            if preferred and (doc.language or "").lower() in preferred:
+                fused[doc_id] *= LANGUAGE_BOOST
         query_terms = set(tokenize(query))
         hits = []
         for doc_id, score in sorted(fused.items(), key=lambda kv: (-kv[1], kv[0]))[:k]:

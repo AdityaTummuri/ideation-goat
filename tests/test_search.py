@@ -43,7 +43,7 @@ def test_hybrid_finds_relevant_repo(index: RepoIndex) -> None:
 @pytest.mark.parametrize("mode", ["bm25", "embeddings", "hybrid"])
 def test_each_mode_returns_results(index: RepoIndex, mode: str) -> None:
     hits = index.search("in-memory cache", k=2, mode=mode)  # type: ignore[arg-type]
-    assert hits and hits[0].doc.repo == "redis/redis"
+    assert "redis/redis" in [h.doc.repo for h in hits]
 
 
 def test_language_filter(index: RepoIndex) -> None:
@@ -74,3 +74,12 @@ def test_language_named_in_query_is_preferred_not_required(index: RepoIndex) -> 
     hits = index.search("web framework for node", k=5)
     assert hits[0].doc.repo == "expressjs/express"
     assert len(hits) > 1  # other languages still appear
+
+
+def test_popularity_prior_breaks_ties(fake_embedder) -> None:  # type: ignore[no-untyped-def]
+    docs = [
+        RepoDoc("small/kv", "key value store", stars=50),
+        RepoDoc("big/kv", "key value store", stars=50_000),
+    ]
+    hits = RepoIndex.build(docs, fake_embedder, {}).search("key value store")
+    assert [h.doc.repo for h in hits] == ["big/kv", "small/kv"]

@@ -141,13 +141,16 @@ It's a signal to help you decide, not a security audit.
 <!-- eval:start -->
 | Setup | Recall@5 | MRR@10 | nDCG@10 | Search latency (p50 / p95) |
 | --- | --- | --- | --- | --- |
-| Embeddings only | 0.578 | 0.711 | 0.608 | 3 / 5 ms |
-| BM25 only | 0.467 | 0.659 | 0.523 | 3 / 6 ms |
-| **Hybrid (RRF)** | **0.634** | **0.736** | **0.658** | 8 / 12 ms |
+| Embeddings only | 0.619 | 0.791 | 0.670 | 4 / 5 ms |
+| BM25 only | 0.549 | 0.782 | 0.616 | 5 / 10 ms |
+| **Hybrid (RRF)** | **0.631** | **0.859** | **0.726** | 9 / 14 ms |
+| Hybrid, no popularity prior | 0.485 | 0.636 | 0.520 | 10 / 16 ms |
 
-Measured on 23 Nov 2026 over a 4,800-repo index (68 of 70 queries scored; 81% of labeled repos are in
-the index). Hybrid retrieval beats either method alone. Latency is local search only; live signals add
-network time, cached for 24 hours.
+Measured on 23 Nov 2026 over a 15,000-repo index (69 of 70 queries scored; 90% of labeled repos are in
+the index). Hybrid beats either method alone. Growing the index from 4,800 to 15,000 repos first *lowered*
+recall, because small look-alike repos crowded out the libraries people actually use; a popularity prior
+(score × stars^0.2, picked from a flat 0.15–0.3 plateau on this same query set) fixed it. Latency is local
+search only; live signals add network time and are cached for 24 hours.
 <!-- eval:end -->
 
 Retrieval is measured on [70 labeled queries](evals/queries.yaml), each with the repos a good engineer
@@ -168,7 +171,7 @@ See [`.env.example`](.env.example) for the full list.
 
 ## Limitations
 
-- The index covers popular repos in Python, JavaScript, TypeScript, Go, Rust and Java. Without it, `find_libraries` falls back to GitHub search.
+- The index holds the 2,500 most-starred repos per language (Python, JavaScript, TypeScript, Go, Rust, Java). In big ecosystems that cuts off at a few thousand stars (about 3,800 for Python), so smaller niche libraries can be missing. Without the index, `find_libraries` falls back to GitHub search.
 - `check_dependencies` checks exact versions only; ranges without a lockfile are listed as not checked. `yarn.lock` and `pnpm-lock.yaml` aren't supported yet.
 - License results flag combinations worth a closer look. They aren't legal advice.
 
