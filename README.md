@@ -71,7 +71,7 @@ from 60 to 5,000 requests an hour.
 **CLI**
 
 ```bash
-uvx --from git+https://github.com/AdityaTummuri/ideation-goat ideation-goat find "rate limiter for a Python API"
+uvx --from git+https://github.com/AdityaTummuri/ideation-goat ideation-goat find "rich text editor for a web app"
 ```
 
 Commands: `find`, `compare`, `verify`, `check`, `papers`. Add `--json` for machine-readable output.
