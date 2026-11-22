@@ -24,9 +24,9 @@ logger = logging.getLogger(__name__)
 LANGUAGES = ["Python", "JavaScript", "TypeScript", "Go", "Rust", "Java"]
 STAR_RANGES = [
     ">=20000", "10000..19999", "5000..9999", "3000..4999", "2000..2999",
-    "1500..1999", "1000..1499", "700..999", "500..699",
+    "1500..1999", "1000..1499", "700..999", "500..699", "300..499",
 ]  # fmt: skip
-README_WORDS = 1500
+README_WORDS = 600
 PAGE_SIZE = 25
 MIN_PAGE_SIZE = 5
 MAX_PAGE_FAILURES = 6

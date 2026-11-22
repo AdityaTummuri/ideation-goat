@@ -26,6 +26,12 @@ Mode = Literal["hybrid", "bm25", "embeddings"]
 RRF_K = 60
 FUSION_DEPTH = 200
 INDEX_FORMAT = 1
+LANGUAGE_BOOST = 1.25
+_LANGUAGE_WORDS = {
+    "python": {"python"}, "javascript": {"javascript", "typescript"}, "node": {"javascript", "typescript"},
+    "nodejs": {"javascript", "typescript"}, "typescript": {"typescript", "javascript"},
+    "golang": {"go"}, "go": {"go"}, "rust": {"rust"}, "java": {"java"},
+}  # fmt: skip
 
 _STOPWORDS = frozenset(
     "a an and are as at be by for from has have i in is it its of on or that the this to was with "
@@ -46,6 +52,14 @@ def tokenize(text: str) -> list[str]:
             token = token[:-1]
         tokens.append(token)
     return tokens
+
+
+def mentioned_languages(query: str) -> set[str]:
+    words = re.findall(r"[a-z]+", query.lower())
+    found: set[str] = set()
+    for word in words:
+        found |= _LANGUAGE_WORDS.get(word, set())
+    return found
 
 
 class Embedder(Protocol):
@@ -172,7 +186,7 @@ class RepoIndex:
             )
         with (directory / "repos.jsonl").open(encoding="utf-8") as fh:
             docs = [RepoDoc(**json.loads(line)) for line in fh if line.strip()]
-        embeddings = np.load(directory / "embeddings.npy")
+        embeddings = np.load(directory / "embeddings.npy").astype(np.float32)
         owners = np.load(directory / "owners.npy")
         return cls(docs, embeddings, owners, embedder, meta)
 
@@ -193,7 +207,7 @@ class RepoIndex:
         with (directory / "repos.jsonl").open("w", encoding="utf-8") as fh:
             for doc in self.docs:
                 fh.write(json.dumps(doc.__dict__, ensure_ascii=False) + "\n")
-        np.save(directory / "embeddings.npy", self.embeddings)
+        np.save(directory / "embeddings.npy", self.embeddings.astype(np.float16))
         np.save(directory / "owners.npy", self.owners)
         (directory / "meta.json").write_text(json.dumps(self.meta, indent=2), encoding="utf-8")
 
@@ -234,6 +248,12 @@ class RepoIndex:
         for ranking in rankings:
             for rank, doc_id in enumerate(ranking):
                 fused[doc_id] += 1.0 / (RRF_K + rank + 1)
+        # A language named in the query ("... for a Python API") is a soft preference, not a filter.
+        preferred = set() if language else mentioned_languages(query)
+        if preferred:
+            for doc_id in fused:
+                if (self.docs[doc_id].language or "").lower() in preferred:
+                    fused[doc_id] *= LANGUAGE_BOOST
         query_terms = set(tokenize(query))
         hits = []
         for doc_id, score in sorted(fused.items(), key=lambda kv: (-kv[1], kv[0]))[:k]:

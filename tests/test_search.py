@@ -64,3 +64,13 @@ def test_load_rejects_a_different_embedding_model(index: RepoIndex, tmp_path: Pa
     fake_embedder.name = "other-model"
     with pytest.raises(ValueError, match="built with fake-embedder"):
         RepoIndex.load(tmp_path, fake_embedder)
+
+
+def test_language_named_in_query_is_preferred_not_required(index: RepoIndex) -> None:
+    from ideation_goat.search import mentioned_languages
+
+    assert mentioned_languages("web framework for a Node API") == {"javascript", "typescript"}
+    assert mentioned_languages("caching layer") == set()
+    hits = index.search("web framework for node", k=5)
+    assert hits[0].doc.repo == "expressjs/express"
+    assert len(hits) > 1  # other languages still appear

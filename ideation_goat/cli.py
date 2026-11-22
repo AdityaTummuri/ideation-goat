@@ -48,7 +48,7 @@ def main(argv: list[str] | None = None) -> int:
 
     index = sub.add_parser("index", help="build, download or inspect the search index")
     index.add_argument("action", choices=["build", "pull", "info"])
-    index.add_argument("--per-language", type=int, default=800)
+    index.add_argument("--per-language", type=int, default=2500)
     index.add_argument("--languages", nargs="+")
     index.add_argument("--pack", type=Path, help="also write a .tar.gz for publishing")
 
